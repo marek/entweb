@@ -2,4 +2,70 @@
 {% block body %}
 <h1>EntWeb</h1>
 
+
+<h2>User's Repos</h2>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Url</th>
+        <th>Owner</th>
+        <th>Date</th>
+    </thead>
+
+    <tbody>
+{% for repo in user_repos %}
+        <tr>
+            <td>{{ repo.full_name }}</td>
+            <td><a href="{{ repo.html_url|safe }}">{{ repo.ssh_url }}</a></td>
+            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a></td>
+            <td>{{ repo.updated_at }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+
+{% for org in org_repos %}
+<h2>{{ org.name }}</h2>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Url</th>
+        <th>Owner</th>
+        <th>Date</th>
+    </thead>
+
+    <tbody>
+    {% for repo in org.repos %}
+        <tr>
+            <td>{{ repo.full_name }}</td>
+            <td><a href="{{ repo.html_url|safe }}">{{ repo.ssh_url|safe }}</a></td>
+            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a></td>
+            <td>{{ repo.updated_at }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+
+<h2>Everything...</h2>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Url</th>
+        <th>Owner</th>
+    </thead>
+
+    <tbody>
+{% for repo in all_repos %}
+        <tr>
+            <td>{{ repo.full_name }}</td>
+            <td><a href="{{ repo.html_url|safe }}">{{ repo.html_url|safe }}</a></td>
+            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a></td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+
 {% endblock %}
