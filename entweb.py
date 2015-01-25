@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config.from_object('entweb.DefaultConfig')
 app.config.from_envvar('ENTWEB_SETTINGS')
 
-oauth_url                = app.config['GITHUB_OAUTH_URL']
+oauth_url               = app.config['GITHUB_OAUTH_URL']
 api_url                 = app.config['GITHUB_API_URL']
 github_url_auth         = oauth_url+'/login/oauth/authorize'
 github_url_access_token = oauth_url+'/login/oauth/access_token'
@@ -37,7 +37,7 @@ def get_all(url, headers=None, params=None, max=100):
     collection = []
 
     while url is not None and max > 0:
-        resp = requests.get(url, headers=headers, params=params);
+        resp = requests.get(url, headers=headers, params=params, verify=False);
         collection.extend(resp.json())
         url = get_next_url(resp.headers)
         max = max - 1
@@ -49,7 +49,8 @@ def get_next_url(headers):
     if "Link" in headers:
         header = headers["Link"]
         matches = re.match("\<(.+?)\>; rel=\"(?:next|last)\"", header)
-        return matches.group(1)
+        if matches != None:
+            return matches.group(1)
     return None
 
 
@@ -69,16 +70,14 @@ def index():
 
     # Get User's Org Repos
     orgs = get_all(github_url_user_orgs, headers=headers)
-    org_repos = []
     for org in orgs:
         # Get User's Repo for each Org
-        org_repos = get_all(github_url_org_repos.replace(':org', org.login), headers=headers)
-        org.repos = org_repos
+        org_repos = get_all(github_url_org_repos.replace(':org', org['login']), headers=headers)
+        org['repos'] = org_repos
 
 
     # Get all Public repos
     all_repos = get_all(github_url_all_repos, headers=headers, max=10)
-    pretty_print(all_repos)
 
     return render_template('index.html', user_repos = repos, org_repos = orgs, all_repos = all_repos)
 
@@ -92,7 +91,7 @@ def login():
 def authorize():
     session['github_state'] = os.urandom(24).encode('hex')
     params = {  'client_id':github_clientid,
-                'scope':'user,repo,public_repo,gist',
+                'scope':'user,repo,public_repo,gist,read:org',
                 'state':session['github_state']
                 }
     uri = github_url_auth + "?" + urlencode(params);
@@ -112,7 +111,7 @@ def access():
                 'code':code,
                 'state':session['github_state']
                 }
-    resp = requests.post(github_url_access_token, params=params, headers=headers)
+    resp = requests.post(github_url_access_token, params=params, headers=headers, verify=False)
 
     if resp.status_code != requests.codes.ok:
         return redirect(url_for('.index'))
