@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from urllib import urlencode
 import requests
 import re
-from collections import namedtuple
 import json
 
 class DefaultConfig(object):
@@ -72,12 +71,13 @@ def index():
     orgs = get_all(github_url_user_orgs, headers=headers)
     for org in orgs:
         # Get User's Repo for each Org
-        org_repos = get_all(github_url_org_repos.replace(':org', org['login']), headers=headers)
+        org_repos = get_all(github_url_org_repos.replace(':org', org['login']), headers=headers, max=100)
+        org_repos.sort(key=lambda x:x['full_name'])
         org['repos'] = org_repos
-
 
     # Get all Public repos
     all_repos = get_all(github_url_all_repos, headers=headers, max=10)
+    all_repos.sort(key=lambda x:x['full_name'])
 
     return render_template('index.html', user_repos = repos, org_repos = orgs, all_repos = all_repos)
 
