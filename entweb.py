@@ -55,6 +55,12 @@ def get_next_url(headers):
     return None
 
 @cache.memoize(300)
+def get_orgs(headers):
+    orgs = get_all(github_url_user_orgs, headers=headers)
+    orgs.sort(key=lambda x:x['login'])
+    return orgs
+
+@cache.memoize(300)
 def get_public_repos(headers):
     # Get all Public repos
     all_repos = get_all(github_url_all_repos, headers=headers, max=100)
@@ -76,7 +82,7 @@ def index():
     repos = get_all(github_url_user_repos, headers=headers)
 
     # Get User's Org Repos
-    orgs = get_all(github_url_user_orgs, headers=headers)
+    orgs = get_orgs(headers=headers)
     for org in orgs:
         # Get User's Repo for each Org
         org_repos = get_all(github_url_org_repos.replace(':org', org['login']), headers=headers, max=100)
