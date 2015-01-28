@@ -11,6 +11,7 @@ EntWeb was built upon a bunch of open source tech
 * [Github API] - Github. duh. Go get an account, register for an app id
 * [Python] - The app is written in python
 * [Flask] - A small neat python web development framework
+* [Flask-Cache] - Cache extension for Flask
 * [requests] - web request library for python
 * [mod_wsgi] - Allows you to host python apps in Apache
 

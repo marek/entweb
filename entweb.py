@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, session, url_for
+from flask.ext.cache import Cache
 from urllib import urlencode
 import requests
 import re
@@ -14,6 +15,7 @@ class DefaultConfig(object):
 app = Flask(__name__)
 app.config.from_object('entweb.DefaultConfig')
 app.config.from_envvar('ENTWEB_SETTINGS')
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 oauth_url               = app.config['GITHUB_OAUTH_URL']
 api_url                 = app.config['GITHUB_API_URL']
@@ -52,6 +54,12 @@ def get_next_url(headers):
             return matches.group(1)
     return None
 
+@cache.memoize(300)
+def get_public_repos(headers):
+    # Get all Public repos
+    all_repos = get_all(github_url_all_repos, headers=headers, max=100)
+    all_repos.sort(key=lambda x:x['full_name'])
+    return all_repos
 
 @app.route('/')
 def index():
@@ -76,8 +84,7 @@ def index():
         org['repos'] = org_repos
 
     # Get all Public repos
-    all_repos = get_all(github_url_all_repos, headers=headers, max=10)
-    all_repos.sort(key=lambda x:x['full_name'])
+    all_repos = get_public_repos(headers=headers)
 
     return render_template('index.html', user_repos = repos, org_repos = orgs, all_repos = all_repos)
 
