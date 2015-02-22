@@ -7,18 +7,18 @@
 <table>
     <thead>
         <th>Name</th>
-        <th>Url</th>
-        <th>Owner</th>
+        <th>Description</th>
         <th>Date</th>
+        <th>&nbsp;</th>
     </thead>
 
     <tbody>
 {% for repo in user_repos %}
         <tr>
-            <td>{{ repo.full_name }}</td>
-            <td><a href="{{ repo.html_url|safe }}">{{ repo.ssh_url }}</a></td>
-            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a></td>
+            <td><a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
+            <td>{{ repo.description}}</td>
             <td>{{ repo.updated_at }}</td>
+            <td><input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /></td>
         </tr>
 {% endfor %}
     </tbody>
@@ -26,46 +26,49 @@
 
 
 {% for org in org_repos %}
-<h2>{{ org.login }}</h2>
+<div class="org">
+<h2><a href="{{ org.html_url|safe }}">{{ org.login }}</a></h2>
 <table>
     <thead>
         <th>Name</th>
-        <th>Url</th>
-        <th>Owner</th>
+        <th>Description</th>
         <th>Date</th>
+        <th>&nbsp;</th>
     </thead>
 
     <tbody>
     {% for repo in org.repos %}
         <tr>
-            <td>{{ repo.full_name }}</td>
-            <td><a href="{{ repo.html_url|safe }}">{{ repo.ssh_url|safe }}</a></td>
-            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a></td>
+            <td><a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
+            <td>{{ repo.description }}</td>
             <td>{{ repo.updated_at }}</td>
+            <td><input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /></td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+</div>
 {% endfor %}
 
+<div class="everything">
 <h2>Everything...</h2>
 <table>
     <thead>
         <th>Name</th>
         <th>Url</th>
-        <th>Owner</th>
+        <th>Description</th>
     </thead>
 
     <tbody>
 {% for repo in all_repos %}
         <tr>
-            <td>{{ repo.full_name }}</td>
+            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a>/<a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
             <td><a href="{{ repo.html_url|safe }}">{{ repo.html_url|safe }}</a></td>
-            <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a></td>
+            <td>{{ repo.description }}</td>
         </tr>
 {% endfor %}
     </tbody>
 </table>
-
+</div>
 
 {% endblock %}

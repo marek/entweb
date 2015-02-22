@@ -24,3 +24,49 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
     background-color:#fff;
 }
+
+.copy-button {
+    display: inline;
+    width: 18px;
+    height: 18px;
+    border: 0;
+}
+
+a, a:visited, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #f22;
+}
+
+h2 {
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+}
+
+div .org {
+    padding-top: 45px;
+}
+
+div .everything {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+div .login {
+    font-size: 36pt;
+    font-weight: bold;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-collapse:separate;
+    border:solid #555555 1px;
+    border-radius:15px;
+    -moz-border-radius:15px;
+    background-color:#eee;
+
+}
