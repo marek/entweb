@@ -3,6 +3,7 @@
 <h1>EntWeb</h1>
 
 
+<div class="user">
 <h2>User's Repos</h2>
 <table>
     <thead>
@@ -23,6 +24,7 @@
 {% endfor %}
     </tbody>
 </table>
+</div>
 
 
 {% for org in org_repos %}
@@ -55,16 +57,16 @@
 <table>
     <thead>
         <th>Name</th>
-        <th>Url</th>
         <th>Description</th>
+        <th>&nbsp;</th>
     </thead>
 
     <tbody>
 {% for repo in all_repos %}
         <tr>
             <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a>/<a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
-            <td><a href="{{ repo.html_url|safe }}">{{ repo.html_url|safe }}</a></td>
             <td>{{ repo.description }}</td>
+            <td><input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /></td>
         </tr>
 {% endfor %}
     </tbody>

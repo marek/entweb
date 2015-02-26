@@ -25,6 +25,19 @@ table tr:nth-child(even) {
     background-color:#fff;
 }
 
+
+.user table th:nth-last-child(2), .org table th:nth-last-child(2)  {
+    width: 180px;
+}
+
+.user table th:last-child, .org table th:last-child, .everything table th:last-child   {
+    width: 200px;
+}
+
+.user table th:first-child, .org table th:first-child, .everything table th:first-child   {
+    width: 300px;
+}
+
 .copy-button {
     display: inline;
     width: 18px;

@@ -65,6 +65,11 @@ def get_public_repos(headers):
     # Get all Public repos
     all_repos = get_all(github_url_all_repos, headers=headers, max=100)
     all_repos.sort(key=lambda x:x['full_name'])
+    for repo in all_repos:
+        ssh_url = repo['html_url'].replace("https://", "git@", 1)
+        ssh_url = ssh_url.replace("/", ":", 1)
+        ssh_url += ".git"
+        repo['ssh_url'] = ssh_url
     return all_repos
 
 @app.route('/')
