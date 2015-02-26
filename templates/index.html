@@ -4,7 +4,7 @@
 
 
 <div class="user">
-<h2>User's Repos</h2>
+<h2><img class="avatar" src="{{ user.avatar_url|safe }}" /><a href="{{ user.html_url|safe }}">User's Repos</a></h2>
 <table>
     <thead>
         <th>Name</th>
@@ -29,7 +29,7 @@
 
 {% for org in org_repos %}
 <div class="org">
-<h2><a href="{{ org.html_url|safe }}">{{ org.login }}</a></h2>
+<h2><img class="avatar" src="{{ org.avatar_url|safe }}" /><a href="{{ org.html_url|safe }}">{{ org.login }}</a></h2>
 <table>
     <thead>
         <th>Name</th>

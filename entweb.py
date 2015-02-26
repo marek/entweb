@@ -21,6 +21,7 @@ oauth_url               = app.config['GITHUB_OAUTH_URL']
 api_url                 = app.config['GITHUB_API_URL']
 github_url_auth         = oauth_url+'/login/oauth/authorize'
 github_url_access_token = oauth_url+'/login/oauth/access_token'
+github_url_user         = api_url+'/user'
 github_url_user_repos   = api_url+'/user/repos'
 github_url_user_orgs    = api_url+'/user/orgs'
 github_url_org_repos    = api_url+'/orgs/:org/repos'
@@ -83,8 +84,12 @@ def index():
                 'Authorization': 'token ' + accesstoken
                 }
 
+    # Get User
+    resp = requests.get(github_url_user, headers=headers, verify=False);
+    user = resp.json()
+
     # Get User Repos
-    repos = get_all(github_url_user_repos, headers=headers)
+    user_repos = get_all(github_url_user_repos, headers=headers)
 
     # Get User's Org Repos
     orgs = get_orgs(headers=headers)
@@ -97,12 +102,11 @@ def index():
     # Get all Public repos
     all_repos = get_public_repos(headers=headers)
 
-    return render_template('index.html', user_repos = repos, org_repos = orgs, all_repos = all_repos)
+    return render_template('index.html', user = user, user_repos = user_repos, org_repos = orgs, all_repos = all_repos)
 
 @app.route('/login')
 def login():
     return render_template('login.html')
-
 
 
 @app.route('/authorize')
