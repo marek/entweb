@@ -4,6 +4,8 @@ EntWeb is an index page for GitHub Enterprise that resembles the classic GitWeb 
 Why when GitHub is so awesome?  It's a bit hard to search for projects at a large company.
 This may also help herd stubborn devlopers away from old services (I'm one of them).
 
+<img src="http://marek.github.io/entweb/images/EntWeb.png" width="1024" />
+
 ### Requirements
 
 EntWeb was built upon a bunch of open source tech
