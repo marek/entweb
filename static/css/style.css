@@ -1,5 +1,6 @@
-body {
+html, body {
     background-color: #ffffff;
+    height: 100%;
 }
 
 .avatar {
@@ -13,6 +14,11 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 95%;
+    height: 100%;
+}
+
+#body-container {
+    min-height: 100%;
 }
 
 table {
