@@ -81,6 +81,11 @@ def get_orgs(headers):
     return orgs
 
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
+
 @cache.memoize(300)
 def get_public_repos(headers):
     # Get all Public repos
