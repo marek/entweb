@@ -17,6 +17,7 @@ app.config.from_object('entweb.DefaultConfig')
 app.config.from_envvar('ENTWEB_SETTINGS')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
+web_url                 = app.config['GITHUB_WEB_URL']
 oauth_url               = app.config['GITHUB_OAUTH_URL']
 api_url                 = app.config['GITHUB_API_URL']
 github_url_auth         = oauth_url+'/login/oauth/authorize'
@@ -40,7 +41,11 @@ def get_all(url, headers=None, params=None, max=100):
 
     while url is not None and max > 0:
         resp = requests.get(url, headers=headers, params=params, verify=False);
-        collection.extend(resp.json())
+        json = resp.json()
+        if isinstance(json, list):
+            collection.extend(json)
+        else:
+            collection.append(json)
         url = get_next_url(resp.headers)
         max = max - 1
 
@@ -59,6 +64,11 @@ def get_next_url(headers):
 def get_orgs(headers):
     orgs = get_all(github_url_user_orgs, headers=headers)
     orgs.sort(key=lambda x:x['login'])
+
+    # Generate html_url so as to not query the rest api again
+    for org in orgs:
+        org['html_url'] = web_url + '/' + org['login']
+
     return orgs
 
 @cache.memoize(300)
