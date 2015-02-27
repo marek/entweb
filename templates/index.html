@@ -19,7 +19,10 @@
             <td><a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
             <td>{{ repo.description}}</td>
             <td>{{ repo.updated_at }}</td>
-            <td><input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /></td>
+            <td>
+                <input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /><br />
+                <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a></div>
+            </td>
         </tr>
 {% endfor %}
     </tbody>
@@ -44,7 +47,10 @@
             <td><a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
             <td>{{ repo.description }}</td>
             <td>{{ repo.updated_at }}</td>
-            <td><input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /></td>
+            <td>
+                <input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /><br />
+                <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a></div>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
@@ -66,7 +72,10 @@
         <tr>
             <td><a href="{{ repo.owner.html_url|safe }}">{{ repo.owner.login }}</a>/<a href="{{ repo.html_url|safe }}">{{ repo.name }}</a></td>
             <td>{{ repo.description }}</td>
-            <td><input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /></td>
+            <td>
+                <input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /><br />
+                <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a></div>
+            </td>
         </tr>
 {% endfor %}
     </tbody>

@@ -60,6 +60,15 @@ def get_next_url(headers):
             return matches.group(1)
     return None
 
+
+def add_urls(repo):
+    # Generate a few repo urls from other data
+    html_url = repo['html_url']
+    repo['history_url'] = html_url + '/commits'
+    repo['branches_url'] = html_url + '/branches'
+    repo['tags_url'] = html_url + '/tags'
+
+
 @cache.memoize(300)
 def get_orgs(headers):
     orgs = get_all(github_url_user_orgs, headers=headers)
@@ -71,17 +80,23 @@ def get_orgs(headers):
 
     return orgs
 
+
 @cache.memoize(300)
 def get_public_repos(headers):
     # Get all Public repos
     all_repos = get_all(github_url_all_repos, headers=headers, max=100)
     all_repos.sort(key=lambda x:x['full_name'])
     for repo in all_repos:
+        # Generate html_url so as to not query the rest api again
         ssh_url = repo['html_url'].replace("https://", "git@", 1)
         ssh_url = ssh_url.replace("/", ":", 1)
         ssh_url += ".git"
         repo['ssh_url'] = ssh_url
+
+        add_urls(repo)
+
     return all_repos
+
 
 @app.route('/')
 def index():
@@ -100,6 +115,8 @@ def index():
 
     # Get User Repos
     user_repos = get_all(github_url_user_repos, headers=headers)
+    for repo in user_repos:
+        add_urls(repo)
 
     # Get User's Org Repos
     orgs = get_orgs(headers=headers)
@@ -109,10 +126,14 @@ def index():
         org_repos.sort(key=lambda x:x['full_name'])
         org['repos'] = org_repos
 
+        for repo in org_repos:
+            add_urls(repo)
+
     # Get all Public repos
     all_repos = get_public_repos(headers=headers)
 
     return render_template('index.html', user = user, user_repos = user_repos, org_repos = orgs, all_repos = all_repos)
+
 
 @app.route('/login')
 def login():

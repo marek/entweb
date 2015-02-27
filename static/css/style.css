@@ -41,6 +41,11 @@ table tr:nth-child(even) {
     width: 200px;
 }
 
+.user table td:last-child, .org table td:last-child, .everything table td:last-child   {
+    padding: 5px 5px 5px 15px;
+    text-align: left;
+}
+
 .user table th:first-child, .org table th:first-child, .everything table th:first-child   {
     width: 300px;
 }
@@ -59,6 +64,16 @@ a, a:visited, a:active {
 
 a:hover {
     color: #f22;
+}
+
+.repo_links {
+    padding: 2px;
+    font-size: 8pt;
+    color:  #0099ff;
+}
+
+.repo_links a {
+    color: #0066ff;
 }
 
 h2 {
