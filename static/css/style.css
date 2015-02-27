@@ -55,6 +55,8 @@ table tr:nth-child(even) {
     width: 18px;
     height: 18px;
     border: 0;
+    vertical-align: middle;
+    padding-bottom: 3px;
 }
 
 a, a:visited, a:active {
@@ -105,4 +107,20 @@ div .login {
     -moz-border-radius:15px;
     background-color:#eee;
 
+}
+
+#header {
+    padding-bottom: 35px;
+}
+
+
+#footer {
+    padding-top: 35px;
+    text-align: center;
+    color: #aaaaaa;
+    font-weight: bold;
+}
+
+#footer a {
+    color:  #0099ff;
 }

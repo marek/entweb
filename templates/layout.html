@@ -6,5 +6,11 @@
 <script src="{{ url_for('static', filename='js/entweb.js') }}"></script>
 
 <div id="container">
+    <div id="header">
+        <h1>EntWeb</h1>
+    </div>
 {% block body %}{% endblock %}
+    <div id="footer">
+        Want to fix something? See the EntWeb source on <a href="http://github.com/marek/entweb">GitHub</a>
+    </div>
 </div>
