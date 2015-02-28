@@ -1,0 +1,10 @@
+[subtree "zeroclipboard"]
+url = git@github.com:zeroclipboard/zeroclipboard.git
+path = subtrees/zeroclipboard
+branch = master
+
+[subtree "tablesorter"]
+url = git@github.com:Mottie/tablesorter.git
+path = subtrees/tablesorter
+branch = master
+
