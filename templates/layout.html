@@ -6,10 +6,10 @@
 <script src="{{ url_for('static', filename='js/ZeroClipboard.js') }}"></script>
 <script src="{{ url_for('static', filename='js/entweb.js') }}"></script>
 
+<div id="header">
+    <img src="{{ url_for('static', filename='images/entweb-logo.png') }}" />
+</div>
 <div id="container">
-    <div id="header">
-        <h1>EntWeb</h1>
-    </div>
     <div id="body-container">
     {% block body %}{% endblock %}
     </div>

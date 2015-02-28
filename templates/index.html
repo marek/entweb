@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="user">
-    <h2><a href="{{ user.html_url|safe }}"><img class="avatar" src="{{ user.avatar_url|safe }}" /></a><a href="{{ user.html_url|safe }}">User's Repos</a></h2>
+    <h2><a href="{{ user.html_url|safe }}"><img class="avatar" src="{{ user.avatar_url|safe }}" /></a><a href="{{ user.html_url|safe }}">{{ user.name }}'s Repos</a></h2>
     <table{% if user_repos|length > 0 %} class="tablesorter"{% endif %}>
         <thead>
             <th>Name</th>
