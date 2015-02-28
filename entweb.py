@@ -67,6 +67,7 @@ def add_urls(repo):
     repo['history_url'] = html_url + '/commits'
     repo['branches_url'] = html_url + '/branches'
     repo['tags_url'] = html_url + '/tags'
+    repo['compare_url'] = html_url + '/compare'
 
 
 @cache.memoize(300)

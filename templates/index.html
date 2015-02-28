@@ -18,7 +18,7 @@
                 <td>{{ repo.updated_at }}</td>
                 <td>
                     <input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /><br />
-                    <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a></div>
+                    <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a> | <a href="{{ repo.compare_url|safe }}">compare</a></div>
                 </td>
             </tr>
             {% endfor %}
@@ -46,7 +46,7 @@
                 <td>{{ repo.updated_at }}</td>
                 <td>
                     <input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /><br />
-                    <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a></div>
+                    <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a> | <a href="{{ repo.compare_url|safe }}">compare</a></div>
                 </td>
             </tr>
             {% endfor %}
@@ -71,7 +71,7 @@
                 <td>{{ repo.description }}</td>
                 <td>
                     <input type="text" value="{{ repo.ssh_url|safe }}"></input><input type="image" src="{{ url_for('static', filename='images/copy.svg') }}" class="copy-button" data-clipboard-text="{{ repo.ssh_url|safe }}" title="Click to copy git url." /><br />
-                    <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a></div>
+                    <div class="repo_links"><a href="{{ repo.history_url|safe }}">history</a> | <a href="{{ repo.branches_url|safe }}">branches</a> | <a href="{{ repo.tags_url|safe }}">tags</a> | <a href="{{ repo.compare_url|safe }}">compare</a></div>
                 </td>
             </tr>
             {% endfor %}
