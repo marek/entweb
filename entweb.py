@@ -120,9 +120,11 @@ def index():
     user = resp.json()
 
     # Get User Repos
-    user_repos = get_all(github_url_user_repos, headers=headers)
+    user_repos = get_all(github_url_user_repos, headers=headers, params={"affiliation":"owner"} )
     for repo in user_repos:
-        add_urls(repo)
+        # don't list if you're the owner in another org. Just list "personal" projects
+        if "organizations_url" not in repo["owner"]:
+            add_urls(repo)
 
     # Get User's Org Repos
     orgs = get_orgs(headers=headers)
