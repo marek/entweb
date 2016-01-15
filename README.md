@@ -33,7 +33,7 @@ sudo chown root:www-data entweb
 # configure entweb as the site
 sudo ln -s sudo ln -s /var/www/entweb/etc/entweb.conf  /etc/apache2/sites-available/entweb.conf
 sudo a2ensite entweb
-sudo a2dissite defualt # Run if you want to disable the default index page
+sudo a2dissite default # Run if you want to disable the default index page
 ```
 
 
